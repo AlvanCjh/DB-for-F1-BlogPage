@@ -1,5 +1,4 @@
 <?php
-// htdocs/api/config/db.php
 
 // 1. Set Security & CORS Headers
 header("Access-Control-Allow-Origin: http://localhost:3000");

@@ -1,15 +1,13 @@
 <?php
-// htdocs/api/user/update_profile.php
-require_once '../config/db.php'; // Link to your centralized database config
+require_once '../config/db.php'; 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Using the helper function we created in db.php
+
     $data = get_json_input();
     
     $email = $data['email'] ?? '';
     $newName = $data['newName'] ?? '';
 
-    // Prepare the SQL to prevent SQL injection
     $stmt = $conn->prepare("UPDATE users SET name = ? WHERE email = ?");
     $stmt->bind_param("ss", $newName, $email);
     
