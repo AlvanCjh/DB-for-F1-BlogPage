@@ -3,7 +3,7 @@ require_once '../config/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     
-    $sql = "SELECT blogs.*, users.name as author_name 
+    $sql = "SELECT blogs.*, users.name as author_name, users.profile_pic as author_pfp
             FROM blogs 
             JOIN users ON blogs.user_email = users.email 
             ORDER BY blogs.created_at DESC";

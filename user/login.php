@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $data['email'] ?? '';
     $password = $data['password'] ?? '';
 
-    $stmt = $conn->prepare("SELECT name, password, role FROM users WHERE email = ?");
+    $stmt = $conn->prepare("SELECT name, password, role, profile_pic FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -18,7 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 "status" => "success", 
                 "message" => "Login successful",
                 "name" => $user['name'], 
-                "role" => $user['role']
+                "role" => $user['role'],
+                "profile_pic" => $user['profile_pic']
             ]);
         } else {
             echo json_encode(["status" => "error", "message" => "Invalid password"]);
