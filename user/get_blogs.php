@@ -3,7 +3,7 @@ require_once '../config/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     
-    $sql = "SELECT blogs.*, users.name as author_name, users.profile_pic as author_pfp
+    $sql = "SELECT blogs.*, users.name as author_name, users.profile_pic as author_pfp, users.id as author_id
             FROM blogs 
             JOIN users ON blogs.user_email = users.email 
             ORDER BY blogs.created_at DESC";
@@ -13,6 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
+            // Ensure author_id is an integer for the frontend
+            $row['author_id'] = (int)$row['author_id'];
             $blogs[] = $row;
         }
         echo json_encode(["status" => "success", "data" => $blogs]);
